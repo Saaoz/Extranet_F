@@ -10,7 +10,11 @@ const Login = () => {
       <form>
         <input type="text" placeholder="Pseudo" />
         <input type="password" placeholder="Mot de passe" />
-        <button type="submit">Connexion</button>
+        <button type="submit">
+          <Link to="/accueil" style={{ textDecoration: 'none', color: 'inherit' }}>
+            Connexion
+          </Link>
+        </button>
       </form>
       <div>
         <Link to="/sign_in">S'inscrire</Link>

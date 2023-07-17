@@ -2,7 +2,7 @@ import React from 'react';
 
 const TableauNeutre = ({ donnees, entetes }) => {
     return (
-        <table>
+        <table className="tableau">
             <thead>
                 <tr>
                     {entetes.map((entete, index) => (
