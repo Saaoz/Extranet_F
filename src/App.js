@@ -18,6 +18,7 @@ const App = () => {
         {/* Autres routes */}
       </Routes>
     </BrowserRouter>
+
   );
 };
 
