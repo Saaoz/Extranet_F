@@ -1,26 +1,26 @@
 import React from 'react';
 
-const TableauNeutre = ({ donnees, entetes }) => {
-    return (
-        <table className="tableau">
-            <thead>
-                <tr>
-                    {entetes.map((entete, index) => (
-                        <th key={index}>{entete}</th>
-                    ))}
-                </tr>
-            </thead>
-            <tbody>
-                {donnees.map((ligne, index) => (
-                    <tr key={index}>
-                        {ligne.map((cellule, index) => (
-                            <td key={index}>{cellule}</td>
-                        ))}
-                    </tr>
-                ))}
-            </tbody>
-        </table>
-    );
+const TableauNeutre = ({ tableData, headers }) => {
+  return (
+    <table className="tableau">
+      <thead>
+        <tr>
+          {headers.map((header, index) => (
+            <th key={index}>{header}</th>
+          ))}
+        </tr>
+      </thead>
+      <tbody>
+        {tableData.map((row, rowIndex) => (
+          <tr key={rowIndex}>
+            {row.map((cell, cellIndex) => (
+              <td key={cellIndex}>{cell}</td>
+            ))}
+          </tr>
+        ))}
+      </tbody>
+    </table>
+  );
 };
 
 export default TableauNeutre;

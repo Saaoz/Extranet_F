@@ -1,27 +1,63 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import SearchBar from '../components/Common/SeachBar';
+import SearchBar from '../components/Common/SearchBar';
 import TableauNeutre from '../components/Common/TableauNeutre';
+import { searchProjets, getAllProjets } from '../api/apiProjet';
 
 const Dashboard_accueil = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [currentChoice, setCurrentChoice] = useState('listProjet');
+  const [searchError, setSearchError] = useState(false);
+  const [searchQuery, setSearchQuery] = useState(''); // Nouvelle variable d'état pour la requête de recherche
+  const [defaultProjects, setDefaultProjects] = useState([]); // Nouvelle variable d'état pour les projets par défaut
   const navigate = useNavigate();
 
-  const mockData = [
-    { id: 1, nom: 'Projet 1', description: 'Description du projet 1' },
-    { id: 2, nom: 'Projet 2', description: 'Description du projet 2' },
-    { id: 3, nom: 'Projet 3', description: 'Description du projet 3' },
-  ];
+  useEffect(() => {
+    // Précharge les 5 derniers projets au chargement de la page
+    async function preloadLatestProjects() {
+      try {
+        const allProjets = await getAllProjets();
+        const latestProjects = allProjets.slice(-5).map((projet) => ({
+          nom: projet.nom,
+          description: projet.description,
+        }));
+        setSearchResults(latestProjects);
+        setDefaultProjects(latestProjects); // Mettre à jour les projets par défaut
+      } catch (error) {
+        console.error('Erreur lors du chargement des projets :', error);
+      }
+    }
+
+    preloadLatestProjects();
+  }, []);
+
+  // Nouvel effet pour surveiller les changements dans la requête de recherche
+  useEffect(() => {
+    if (searchQuery.length > 0) {
+      handleSearch(searchQuery);
+    } else {
+      setSearchResults(defaultProjects); // Remettre les résultats de la recherche aux projets par défaut lorsque la requête de recherche est vide
+    }
+  }, [searchQuery]); // Cette fonction sera appelée chaque fois que searchQuery change
 
   const handleChoiceChange = (choice) => {
     setCurrentChoice(choice);
   };
 
-  const handleSearch = (query) => {
-    // Effectuez votre recherche ici en utilisant fetch ou d'autres méthodes
-    // Mettez à jour les résultats de la recherche avec setSearchResults
-    setSearchResults([...mockData]); // Remplacez mockData par vos données de recherche réelles
+  const handleSearch = async (query) => {
+    try {
+      setSearchError(false);
+      const data = await searchProjets(query);
+
+      if (data.length === 0) {
+        setSearchError(true);
+      } else {
+        setSearchResults(data.map((projet) => ({ nom: projet.nom, description: projet.description })));
+      }
+    } catch (error) {
+      setSearchResults([]);
+      setSearchError(true);
+    }
   };
 
   const handleProjetClick = (id) => {
@@ -29,7 +65,7 @@ const Dashboard_accueil = () => {
   };
 
   const handleProjetAdd = () => {
-    navigate('/projet/add'); // Redirection vers la page de création de projet
+    navigate('/projet/add');
   };
 
   return (
@@ -57,31 +93,40 @@ const Dashboard_accueil = () => {
       </header>
 
       {/* Affichez le SearchBar */}
-      <SearchBar onSearch={handleSearch} />
+      <SearchBar onSearch={setSearchQuery} /> {/* Utilisez setSearchQuery comme fonction de rappel pour la recherche */}
 
       {/* Affichez les résultats en fonction du choix actuel */}
-      {currentChoice === 'listProjet' && (
-        <TableauNeutre
-          donnees={searchResults}
-          entetes={['Projet', 'Description', 'Action']}
-          onRowClick={(id) => handleProjetClick(id)}
-        />
-      )}
-      {currentChoice === 'listDocument' && (
-        <TableauNeutre
-          donnees={searchResults}
-          entetes={['Document', 'Description', 'Action']}
-          onRowClick={() => {}}
-        />
-      )}
-      {currentChoice === 'listNotice' && (
-        <TableauNeutre
-          donnees={searchResults}
-          entetes={['Notice', 'Description', 'Action']}
-          onRowClick={() => {}}
-        />
+      {currentChoice === 'listProjet' && !searchError && (
+        <>
+          {searchResults.length > 0 ? (
+            <TableauNeutre
+              tableData={searchResults.map((projet) => [projet.nom, projet.description])}
+              headers={['Nom du projet', 'Description']}
+              onRowClick={(id) => handleProjetClick(id)}
+            />
+          ) : (
+            <p>Aucun projet avec ce nom n'a été trouvé.</p>
+          )}
+        </>
       )}
 
+      {currentChoice === 'listDocument' && !searchError && (
+        // Ajoutez ici le contenu spécifique pour le choix "listDocument"
+        <p>Contenu pour la liste des documents.</p>
+      )}
+
+      {currentChoice === 'listNotice' && !searchError && (
+        // Ajoutez ici le contenu spécifique pour le choix "listNotice"
+        <p>Contenu pour la liste des notices.</p>
+      )}
+
+      {/* Gère l'affichage du message si la recherche n'a pas abouti */}
+      {currentChoice === 'listProjet' && searchError && (
+        <p>Une erreur s'est produite lors de la recherche. Veuillez réessayer plus tard.</p>
+      )}
+
+      {/* Ajoutez des conditions pour les autres choix si nécessaire */}
+      {/* ... */}
       {currentChoice === 'listProjet' && (
         <button onClick={handleProjetAdd}>Ajouter un projet</button>
       )}
