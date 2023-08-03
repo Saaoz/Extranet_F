@@ -2,7 +2,10 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../components/Common/SearchBar';
 import TableauNeutre from '../components/Common/TableauNeutre';
+import Header from '../components/Common/Header';
 import { searchProjets, getAllProjets } from '../api/apiProjet';
+
+import '../style/App.css';
 
 const Dashboard_accueil = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -38,7 +41,7 @@ const Dashboard_accueil = () => {
     } else {
       setSearchResults(defaultProjects); // Remettre les résultats de la recherche aux projets par défaut lorsque la requête de recherche est vide
     }
-  }, [searchQuery]); // Cette fonction sera appelée chaque fois que searchQuery change
+  }, [searchQuery]); //sera appelée chaque fois que searchQuery change
 
   const handleChoiceChange = (choice) => {
     setCurrentChoice(choice);
@@ -70,27 +73,10 @@ const Dashboard_accueil = () => {
 
   return (
     <div>
-      <header>
-        {/* Ajoutez des boutons pour les différentes options */}
-        <button
-          onClick={() => handleChoiceChange('listProjet')}
-          className={currentChoice === 'listProjet' ? 'active' : ''}
-        >
-          Liste des projets
-        </button>
-        <button
-          onClick={() => handleChoiceChange('listDocument')}
-          className={currentChoice === 'listDocument' ? 'active' : ''}
-        >
-          Liste des documents
-        </button>
-        <button
-          onClick={() => handleChoiceChange('listNotice')}
-          className={currentChoice === 'listNotice' ? 'active' : ''}
-        >
-          Liste des notices
-        </button>
-      </header>
+      <Header
+        onChoiceChange={handleChoiceChange}
+        currentChoice={currentChoice}
+      />
 
       {/* Affichez le SearchBar */}
       <SearchBar onSearch={setSearchQuery} /> {/* Utilisez setSearchQuery comme fonction de rappel pour la recherche */}
@@ -128,7 +114,7 @@ const Dashboard_accueil = () => {
       {/* Ajoutez des conditions pour les autres choix si nécessaire */}
       {/* ... */}
       {currentChoice === 'listProjet' && (
-        <button onClick={handleProjetAdd}>Ajouter un projet</button>
+        <button className='projet_add' onClick={handleProjetAdd}>Ajouter un projet</button>
       )}
     </div>
   );

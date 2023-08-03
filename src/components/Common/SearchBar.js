@@ -14,14 +14,14 @@ const SearchBar = ({ onSearch }) => {
 
   return (
     <div className="search-bar">
-      <input
+      <input className='input_search'
         type="text"
         placeholder="Rechercher..."
         value={query}
         onChange={handleInputChange} // mise à jour de la valeur de l'input et déclenchement de la recherche chaque fois que l'utilisateur tape quelque chose
       />
       <button type="submit" onClick={() => onSearch(query)}>
-        <i className="fas fa-search"></i>
+        <i className="btn_search">recherche</i>
       </button>
     </div>
   );
