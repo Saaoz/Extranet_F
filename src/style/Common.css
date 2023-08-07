@@ -1,3 +1,5 @@
+/* searchbar */
+
 .search-bar {
     display: flex;
     flex-direction: row;
@@ -5,9 +7,9 @@
     padding: 0.8rem;
     background-color: lightblue;
     border-radius: 0.4rem;
-    margin-top: 5rem;
+    margin-top: 2.5rem;
     align-items: baseline;
-    margin-bottom: 5rem;
+    margin-bottom: 2.5rem;
 }
 
 .input_search {
@@ -19,17 +21,12 @@
     width: 50rem;
 }
 
-button {
-    padding: 0.4rem 0.8rem;
-    background-color: #007bff;
-    padding-inline: 2.5rem;
-    padding-top: 1rem;
-    padding-bottom: 1rem;
+.fa-search {
     color: #fff;
-    border: none;
-    border-radius: 0.4rem;
-    cursor: pointer;
 }
+
+/* header menu top */
+
 
 header{
     background-color: lightblue;
@@ -44,41 +41,68 @@ header{
 
 }
 
-button:hover {
-    background-color: purple;
+
+
+
+button {
+    padding: 0.4rem 0.8rem;
+    background-color: #007bff;
+    padding-inline: 2.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    color: #fff;
+    border: none;
+    border-radius: 0.4rem;
+    cursor: pointer;
 }
 
-.fa-search {
-    color: #fff;
+
+button:hover {
+    background-color: purple;
 }
 
 
 
 /* CSS DU TABLEAU */
 
-.tableau {
-    border-collapse: collapse;
-    width: 100%;
-}
-
-.tableau thead th {
-    background-color: #f2f2f2;
-    color: #333;
-    font-weight: bold;
-    padding: 1.2rem;
-    text-align: left;
-}
-
-.tableau tbody td {
-    border-bottom: 0.1rem solid #ddd;
-    padding: 1.2rem;
-    text-align: left;
-}
-
-.tableau tbody tr:last-child td {
+.table_interact {
+    display: flex;
+    flex-direction: column;
+    padding-inline: 5rem;
+    padding-top: 2.5rem;
+    padding-bottom: 2.5rem;
+    background-color: lightblue;
+  }
+  
+  .under_t_header {
+    display: flex;
+    gap: 30%;
+  }
+  
+  .t_content {
+    /* Supprimez la bordure au bas de chaque cellule */
     border-bottom: none;
-}
-
-.tableau tbody tr:hover {
-    background-color: #f9f9f9;
-}
+  }
+  
+  .t_content:hover {
+    cursor: pointer;
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  
+  .under_t_body {
+    display: flex;
+    flex-direction: column; /* Mettez en colonne pour que chaque ligne soit une boîte séparée */
+    gap: 0.5rem; /* Ajoutez un espace entre les lignes pour la séparation */
+  }
+  
+  .under_t_body:not(:first-child) {
+    /* Ajoutez une bordure en haut pour toutes les lignes sauf la première */
+    border-top: 0.3rem solid lightgreen;
+  }
+  
+  /* Pour conserver l'apparence de chaque cellule alignée avec les en-têtes */
+  .t_body tr {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }

@@ -20,7 +20,7 @@ const Dashboard_accueil = () => {
     async function preloadLatestProjects() {
       try {
         const allProjets = await getAllProjets();
-        const latestProjects = allProjets.slice(-5).map((projet) => ({
+        const latestProjects = allProjets.slice(-20).map((projet) => ({
           nom: projet.nom,
           description: projet.description,
         }));

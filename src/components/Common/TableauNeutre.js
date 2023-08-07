@@ -8,19 +8,19 @@ const TableauNeutre = ({ tableData, headers, onRowClick }) => {
     navigate(`/projet${id}`);
   };
   return (
-    <table>
-      <thead>
-        <tr>
+    <table className='table_interact'>
+      <thead className='t_header'>
+        <tr className='under_t_header'>
           {headers.map((header, index) => (
             <th key={index}>{header}</th>
           ))}
         </tr>
       </thead>
-      <tbody>
+      <tbody className='t_body'>
         {tableData.map((row, index) => (
-          <tr key={index} onClick={() => handleClick(row.id)}>
+          <tr className='under_t_body' key={index} onClick={() => handleClick(row.id)}>
             {row.map((cell, index) => (
-              <td key={index}>{cell}</td>
+              <td className='t_content' key={index}>{cell}</td>
             ))}
           </tr>
         ))}
