@@ -83,7 +83,7 @@ async function getLotsByProjetId(projetId) {
     try {
         const response = await fetch(`${BASE_URL}/api/lot/lot_projet_id/${projetId}`);
         
-        if (response.status === 404) {
+        if (response.status === 204) {
             return []; // Retourne un tableau vide si aucun lot n'a été trouvé
         }
 
