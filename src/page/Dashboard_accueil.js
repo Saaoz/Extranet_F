@@ -20,7 +20,8 @@ const Dashboard_accueil = () => {
     async function preloadLatestProjects() {
       try {
         const allProjets = await getAllProjets();
-        const latestProjects = allProjets.slice(-20).map((projet) => ({
+        const latestProjects = allProjets.slice(-15).map((projet) => ({
+          id: projet.id,
           nom: projet.nom,
           description: projet.description,
         }));
@@ -55,7 +56,7 @@ const Dashboard_accueil = () => {
       if (data.length === 0) {
         setSearchError(true);
       } else {
-        setSearchResults(data.map((projet) => ({ nom: projet.nom, description: projet.description })));
+        setSearchResults(data.map((projet) => ({ id: projet.id, nom: projet.nom, description: projet.description })));
       }
     } catch (error) {
       setSearchResults([]);
@@ -64,8 +65,10 @@ const Dashboard_accueil = () => {
   };
 
   const handleProjetClick = (id) => {
-    navigate(`/dashboard_projet/${id}`);
+    navigate(`/projet/${id}`);
   };
+
+
 
   const handleProjetAdd = () => {
     navigate('/projet/add');
@@ -86,10 +89,11 @@ const Dashboard_accueil = () => {
         <>
           {searchResults.length > 0 ? (
             <TableauNeutre
-              tableData={searchResults.map((projet) => [projet.nom, projet.description])}
-              headers={['Nom du projet', 'Description']}
-              onRowClick={(id) => handleProjetClick(id)}
-            />
+            tableData={searchResults.map((projet) => [projet.nom, projet.description])}
+            ids={searchResults.map((projet) => projet.id)} // Transmettez les IDs
+            headers={['Nom du projet', 'Description']}
+            onRowClick={(id) => handleProjetClick(id)}
+          />
           ) : (
             <p>Aucun projet avec ce nom n'a été trouvé.</p>
           )}
@@ -111,8 +115,6 @@ const Dashboard_accueil = () => {
         <p>Une erreur s'est produite lors de la recherche. Veuillez réessayer plus tard.</p>
       )}
 
-      {/* Ajoutez des conditions pour les autres choix si nécessaire */}
-      {/* ... */}
       {currentChoice === 'listProjet' && (
         <button className='projet_add' onClick={handleProjetAdd}>Ajouter un projet</button>
       )}

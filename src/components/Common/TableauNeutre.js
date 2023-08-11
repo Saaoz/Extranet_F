@@ -1,13 +1,9 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom'; // import du hook useNavigate
 
-const TableauNeutre = ({ tableData, headers, onRowClick }) => {
-  const navigate = useNavigate();
 
-  const handleClick = (id) => {
-    navigate(`/projet${id}`);
-  };
+const TableauNeutre = ({ tableData, headers, ids, onRowClick }) => { 
   return (
+    
     <table className='table_interact'>
       <thead className='t_header'>
         <tr className='under_t_header'>
@@ -17,10 +13,10 @@ const TableauNeutre = ({ tableData, headers, onRowClick }) => {
         </tr>
       </thead>
       <tbody className='t_body'>
-        {tableData.map((row, index) => (
-          <tr className='under_t_body' key={index} onClick={() => handleClick(row.id)}>
-            {row.map((cell, index) => (
-              <td className='t_content' key={index}>{cell}</td>
+        {tableData.map((row, rowIndex) => (
+          <tr className='under_t_body' key={rowIndex} onClick={() => onRowClick(ids[rowIndex])}>
+            {row.map((cell, cellIndex) => (
+              <td className='t_content' key={cellIndex}>{cell}</td>
             ))}
           </tr>
         ))}

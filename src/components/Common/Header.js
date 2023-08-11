@@ -3,7 +3,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 
-const Header = ({ onChoiceChange, currentChoice }) => {
+const Header = ({ onChoiceChange, currentChoice, isFromProject }) => {
   const navigate = useNavigate();
 
   const handleBackToDashboard = () => {
@@ -22,7 +22,7 @@ const Header = ({ onChoiceChange, currentChoice }) => {
           onClick={() => onChoiceChange('listProjet')}
           className={currentChoice === 'listProjet' ? 'active' : ''}
         >
-          Liste des projets
+          {isFromProject ? 'Liste des Lots' : 'Liste des projets' } 
         </button>
         <button
           onClick={() => onChoiceChange('listDocument')}
