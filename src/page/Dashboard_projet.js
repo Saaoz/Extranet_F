@@ -88,7 +88,7 @@ const Dashboard_Projet = () => {
               onRowClick={(id) => handleLotClick(id)}
             />
             ) : (
-                <p>Aucun projet avec ce nom n'a été trouvé.</p>
+                <p>Aucun lot.</p>
               )}
             </>
           )}

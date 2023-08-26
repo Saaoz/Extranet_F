@@ -42,6 +42,7 @@ const Dashboard_accueil = () => {
     } else {
       setSearchResults(defaultProjects); // Remettre les résultats de la recherche aux projets par défaut lorsque la requête de recherche est vide
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [searchQuery]); //sera appelée chaque fois que searchQuery change
 
   const handleChoiceChange = (choice) => {
@@ -81,7 +82,6 @@ const Dashboard_accueil = () => {
         currentChoice={currentChoice}
       />
 
-      {/* Affichez le SearchBar */}
       <SearchBar onSearch={setSearchQuery} /> {/* Utilisez setSearchQuery comme fonction de rappel pour la recherche */}
 
       {/* Affichez les résultats en fonction du choix actuel */}
