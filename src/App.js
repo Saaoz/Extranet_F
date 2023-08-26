@@ -12,16 +12,15 @@ import Dashboardprojet from "./page/Dashboard_projet";
 const App = () => {
   return (
     <BrowserRouter>
-			<Routes>
+      <Routes>
         <Route path="/sign_in" element={<SigninPage />} />
         <Route path="/reset" element={<ResetPage />} />
         <Route path="/" element={<LoginPage />} />
         <Route path="/accueil" element={<Dashboardaccueil />} />
-        <Route path="/projet" element={<Dashboardprojet/>} />
+        <Route path="/projet/:projetId" element={<Dashboardprojet />} />
         {/* Autres routes */}
       </Routes>
     </BrowserRouter>
-
   );
 };
 
