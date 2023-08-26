@@ -8,6 +8,7 @@ import ResetPage from "./page/Reset";
 import LoginPage from "./page/Login";
 import Dashboardaccueil from "./page/Dashboard_accueil";
 import Dashboardprojet from "./page/Dashboard_projet";
+import DashboardMarche from "./page/Dashboard_marché";
 
 const App = () => {
   return (
@@ -18,6 +19,7 @@ const App = () => {
         <Route path="/" element={<LoginPage />} />
         <Route path="/accueil" element={<Dashboardaccueil />} />
         <Route path="/projet/:projetId" element={<Dashboardprojet />} />
+        <Route path="/marche/:projetId/:lotNom" element={<DashboardMarche />} />
         {/* Autres routes */}
       </Routes>
     </BrowserRouter>
