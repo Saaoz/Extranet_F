@@ -19,7 +19,7 @@ const App = () => {
         <Route path="/" element={<LoginPage />} />
         <Route path="/accueil" element={<Dashboardaccueil />} />
         <Route path="/projet/:projetId" element={<Dashboardprojet />} />
-        <Route path="/marche/:projetId/:lotNom" element={<DashboardMarche />} />
+        <Route path="/marche/:projetId/:nom" element={<DashboardMarche />} />
         {/* Autres routes */}
       </Routes>
     </BrowserRouter>

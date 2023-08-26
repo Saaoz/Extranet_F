@@ -1,37 +1,72 @@
 import React, { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import { getMarcheByLotNomAndProjetId } from '../api/apiMarche'; // La fonction API à créer
+import Header from '../components/Common/Header';
+import { getMarcheAndLotInfo } from '../api/apimarcheAndLot'; // Importez le fichier apiJoin.js
+import {getLot} from '../api/apiLot';
+import {getMarche} from '../api/apiMarche';
 
 const Dashboard_Marche = () => {
-  const { projetId, lotNom } = useParams();
-  const [marches, setMarches] = useState([]);
-  
+  const [lotInfo, setLotInfo] = useState(null);
+  const [marcheInfo, setMarcheInfo] = useState(null);
+  const [error, setError] = useState(false);
+
+  const { projetId, nom } = useParams(); 
+
   useEffect(() => {
-    async function preloadMarches() {
+    async function fetchInfo() {
       try {
-        const data = await getMarcheByLotNomAndProjetId(lotNom, projetId);
+        const jointureInfo = await getMarcheAndLotInfo(projetId, nom); 
+        // console.log("jointureInfo:", jointureInfo); // Debug
         
-        if (data.length === 0) {
-          // Gérer le cas où il n'y a pas de marchés. Par exemple, afficher un message.
+        const lotId = jointureInfo[0]?.lot_id;  // Accédez au premier élément du tableau
+        const marcheId = jointureInfo[0]?.marche_id;  // Accédez au premier élément du tableau
+        
+        // console.log("lotId:", lotId); // Debug
+        // console.log("marcheId:", marcheId); // Debug
+    
+        if (lotId && marcheId) {
+          const infoLot = await getLot(lotId); 
+          setLotInfo(infoLot);
+        
+          const infoMarche = await getMarche(marcheId); 
+          setMarcheInfo(infoMarche);
         } else {
-          setMarches(data);
+          console.error("lotId ou marcheId est undefined");
         }
-      } catch (error) {
-        console.error('Erreur lors du chargement des marchés :', error);
-        // Vous pouvez toujours définir une erreur si nécessaire.
+        
+      } catch (err) {
+        console.error('Erreur lors de la récupération des informations :', err);
+        setError(true);
       }
     }
-
-    preloadMarches();
-  }, [lotNom, projetId]);
+  
+    fetchInfo();
+  }, [projetId, nom]);
 
   return (
     <div>
-      <h1>Tableau de bord du Marché</h1>
-      <h2>ID du Projet : {projetId}</h2>
-      <h2>Nom du Lot : {lotNom}</h2>
-      
-      {/* Ici, vous pouvez utiliser les données dans "marches" pour afficher ce que vous souhaitez */}
+      <Header isFromProject={false} />
+
+      {error && (
+        <p>Une erreur s'est produite lors de la récupération des informations. Veuillez réessayer plus tard.</p>
+      )}
+
+      {lotInfo && (
+        <>
+          <h2>Informations sur le lot</h2>
+          <p>Nom du lot: {lotInfo.nom}</p>
+          <p>Description du lot: {lotInfo.description}</p>
+          <p>Montant: {lotInfo.montant}</p>
+          <p>Date de début: {lotInfo.date_debut}</p>
+          <p>Date de fin: {lotInfo.date_fin}</p>
+        </>
+      )}
+
+
+
+      {!lotInfo && !marcheInfo && !error && (
+        <p>Chargement des informations...</p>
+      )}
     </div>
   );
 };

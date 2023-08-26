@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SearchBar from '../components/Common/SearchBar';
-import TableauNeutre from '../components/Common/TableauNeutre';
 import Header from '../components/Common/Header';
 import { searchLots, getLotsByProjetId} from '../api/apiLot';
 
@@ -17,7 +16,6 @@ const Dashboard_Projet = () => {
   const navigate = useNavigate();
 
   const { projetId } = useParams();
-
 
 
 
@@ -70,9 +68,11 @@ const Dashboard_Projet = () => {
     }
   };
 
-  const handleLotClick = (id) => {
-    navigate(`/dashboard_lot/${id}`);
+  const handleLotClick = (name) => {
+    // console.log(`/marche/${projetId}/${name}`) 
+    navigate(`/marche/${projetId}/${name}`);
   };
+  
 
   return (
     <div>
@@ -81,15 +81,19 @@ const Dashboard_Projet = () => {
       
       {currentChoice === 'listLot' && !searchError && (
         <>
-          {searchResults.length > 0 ? (
-            <TableauNeutre
-              tableData={searchResults.map((lot) => [lot.nom, lot.description])}
-              headers={['Nom du lot', 'Description']}
-              onRowClick={(id) => handleLotClick(id)}
-            />
-            ) : (
-                <p>Aucun lot.</p>
-              )}
+        <div className='tabl'>
+          <p>nom</p>
+          <p>description</p>
+        </div>
+        <div>
+      {searchResults.map((lot, index) => (
+        <div className='tabl' onClick={() => handleLotClick(lot.nom)} key={index}>
+          <p className='t_content'>{lot.nom}</p>
+          <p>{lot.description}</p>
+        </div>
+      ))}
+    </div>
+          
             </>
           )}
     

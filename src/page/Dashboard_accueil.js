@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../components/Common/SearchBar';
-import TableauNeutre from '../components/Common/TableauNeutre';
+// import TableauNeutre from '../components/Common/TableauNeutre';
 import Header from '../components/Common/Header';
 import { searchProjets, getAllProjets } from '../api/apiProjet';
 
@@ -15,23 +15,25 @@ const Dashboard_accueil = () => {
   const [defaultProjects, setDefaultProjects] = useState([]); // Nouvelle variable d'état pour les projets par défaut
   const navigate = useNavigate();
 
+
+  async function preloadLatestProjects() {
+    try {
+      const allProjets = await getAllProjets();
+      const latestProjects = allProjets.slice(-15).map((projet) => ({
+        id: projet.id,
+        nom: projet.nom,
+        description: projet.description,
+      }));
+      // console.log(latestProjects)
+      setSearchResults(latestProjects);
+      setDefaultProjects(latestProjects); // Mettre à jour les projets par défaut
+    } catch (error) {
+      console.error('Erreur lors du chargement des projets :', error);
+    }
+  }
+
   useEffect(() => {
     // Précharge les 5 derniers projets au chargement de la page
-    async function preloadLatestProjects() {
-      try {
-        const allProjets = await getAllProjets();
-        const latestProjects = allProjets.slice(-15).map((projet) => ({
-          id: projet.id,
-          nom: projet.nom,
-          description: projet.description,
-        }));
-        setSearchResults(latestProjects);
-        setDefaultProjects(latestProjects); // Mettre à jour les projets par défaut
-      } catch (error) {
-        console.error('Erreur lors du chargement des projets :', error);
-      }
-    }
-
     preloadLatestProjects();
   }, []);
 
@@ -58,6 +60,7 @@ const Dashboard_accueil = () => {
         setSearchError(true);
       } else {
         setSearchResults(data.map((projet) => ({ id: projet.id, nom: projet.nom, description: projet.description })));
+        
       }
     } catch (error) {
       setSearchResults([]);
@@ -87,16 +90,19 @@ const Dashboard_accueil = () => {
       {/* Affichez les résultats en fonction du choix actuel */}
       {currentChoice === 'listProjet' && !searchError && (
         <>
-          {searchResults.length > 0 ? (
-            <TableauNeutre
-            tableData={searchResults.map((projet) => [projet.nom, projet.description])}
-            ids={searchResults.map((projet) => projet.id)} // Transmettez les IDs
-            headers={['Nom du projet', 'Description']}
-            onRowClick={(id) => handleProjetClick(id)}
-          />
-          ) : (
-            <p>Aucun projet avec ce nom n'a été trouvé.</p>
-          )}
+        <div className='tabl'>
+          <p>nom</p>
+          <p>description</p>
+        </div>
+        <div>
+          {searchResults.map((projet,_) => (
+            <div className='tabl' onClick={() =>handleProjetClick(projet.id)} key={_}>
+            <p className='t_content'>{projet.nom}</p>
+            <p>{projet.description}</p>
+          </div>
+          ) )}
+        </div>
+          
         </>
       )}
 

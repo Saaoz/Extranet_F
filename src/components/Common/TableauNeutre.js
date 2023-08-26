@@ -1,27 +1,32 @@
 import React from 'react';
+ // Vous pouvez créer ce fichier pour définir vos styles
 
-
-const TableauNeutre = ({ tableData, headers, ids, onRowClick }) => { 
+const TableauNeutre = ({ tableData, headers, ids, onRowClick }) => {
   return (
-    
-    <table className='table_interact'>
-      <thead className='t_header'>
-        <tr className='under_t_header'>
-          {headers.map((header, index) => (
-            <th key={index}>{header}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody className='t_body'>
-        {tableData.map((row, rowIndex) => (
-          <tr className='under_t_body' key={rowIndex} onClick={() => onRowClick(ids[rowIndex])}>
-            {row.map((cell, cellIndex) => (
-              <td className='t_content' key={cellIndex}>{cell}</td>
-            ))}
-          </tr>
+    <div className="list-container">
+      <div className="list-header">
+        {headers.map((header, index) => (
+          <div key={index} className="list-header-cell">
+            {header}
+          </div>
         ))}
-      </tbody>
-    </table>
+      </div>
+      <div className="list-body">
+        {tableData.map((row, rowIndex) => (
+          <div 
+            key={rowIndex} 
+            className="list-row" 
+            onClick={() => onRowClick(ids[rowIndex])}
+          >
+            {row.map((cell, cellIndex) => (
+              <div key={cellIndex} className="list-cell">
+                {cell}
+              </div>
+            ))}
+          </div>
+        ))}
+      </div>
+    </div>
   );
 };
 

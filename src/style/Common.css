@@ -106,3 +106,51 @@ button:hover {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
   }
+
+
+.tabl{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-inline: 5rem;
+  padding-top: 2.5rem;
+  padding-bottom: 2.5rem;
+}
+
+.map_tabl{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  padding-inline: 5rem;
+  padding-top: 1rem;
+  padding-bottom: 1rem;
+}
+
+/* CSS TEST */
+
+.lot-info-container {
+  background-color: #f5f5f5;
+  padding: 1em;
+  border-radius: 8px;
+  margin: 1em 0;
+}
+
+.lot-info-header {
+  margin-bottom: 1em;
+  font-size: 1.5em;
+}
+
+.lot-info-item {
+  margin: 0.5em 0;
+  display: flex;
+  justify-content: space-between;
+}
+
+.lot-info-label {
+  font-weight: bold;
+}
+
+.lot-info-value {
+  flex-grow: 1;
+  text-align: right;
+}
