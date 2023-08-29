@@ -4,7 +4,7 @@ import "../../../style/auth.css"
 
 const Reset = () => {
   return (
-    <div className="container reset-container">
+    <div className="container reset-container auth_part">
       <h1>Réinitialisation du mot de passe</h1>
       <form>
         <input type="email" placeholder="Adresse e-mail" />

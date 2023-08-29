@@ -37,10 +37,12 @@
   div {
     display: flex;
     justify-content: space-between;
-
     flex-direction: column
   }
-  
+.auth_part{
+  padding-top: 5%;
+}
+
   a {
     color: #007bff;
     text-decoration: none;

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import SearchBar from '../components/Common/SearchBar';
-// import TableauNeutre from '../components/Common/TableauNeutre';
+import Tableau from '../components/Common/TableauNeutre';
 import Header from '../components/Common/Header';
 import { searchProjets, getAllProjets } from '../api/apiProjet';
 
@@ -68,8 +68,8 @@ const Dashboard_accueil = () => {
     }
   };
 
-  const handleProjetClick = (id) => {
-    navigate(`/projet/${id}`);
+  const handleProjetClick = (projet) => {
+    navigate(`/projet/${projet.id}`);
   };
 
 
@@ -90,18 +90,8 @@ const Dashboard_accueil = () => {
       {/* Affichez les résultats en fonction du choix actuel */}
       {currentChoice === 'listProjet' && !searchError && (
         <>
-        <div className='tabl'>
-          <p>nom</p>
-          <p>description</p>
-        </div>
-        <div>
-          {searchResults.map((projet,_) => (
-            <div className='tabl' onClick={() =>handleProjetClick(projet.id)} key={_}>
-            <p className='t_content'>{projet.nom}</p>
-            <p>{projet.description}</p>
-          </div>
-          ) )}
-        </div>
+        <Tableau headers={['Nom', 'Description']} data={searchResults} handleClick={handleProjetClick} />
+
           
         </>
       )}

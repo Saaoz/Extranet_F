@@ -126,6 +126,39 @@ button:hover {
   padding-bottom: 1rem;
 }
 
+/* SOUS TABLEAU */
+
+.sous-tableau-header {
+  background-color: #f2f2f2;
+}
+
+.sous-tableau-th,
+.sous-tableau-td {
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+}
+
+.sous-tableau-row:hover {
+  background-color: #f5f5f5;
+}
+
+
+/* Pour la div qui contient les tableaux */
+.tableau-container {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 20px;
+  flex-direction: row
+}
+
+/* Pour les divs individuelles qui contiennent chaque tableau */
+.tableau-wrapper {
+  flex: 1;
+  margin: 0 10px; /* espace entre les tableaux */
+}
+
+
 /* CSS TEST */
 
 .lot-info-container {

@@ -1,33 +1,31 @@
 import React from 'react';
- // Vous pouvez créer ce fichier pour définir vos styles
 
-const TableauNeutre = ({ tableData, headers, ids, onRowClick }) => {
+const Tableau = ({ headers, data, handleClick }) => {
+  if (!Array.isArray(data)) {
+    console.error("Le prop 'data' doit être un tableau");
+    return <div>Une erreur est survenue</div>;
+  }
+
   return (
-    <div className="list-container">
-      <div className="list-header">
-        {headers.map((header, index) => (
-          <div key={index} className="list-header-cell">
-            {header}
-          </div>
+    <>
+      <div className='tabl'>
+        {Array.isArray(headers) && headers.map((header, index) => (
+          <p key={index}>{header}</p>
         ))}
       </div>
-      <div className="list-body">
-        {tableData.map((row, rowIndex) => (
-          <div 
-            key={rowIndex} 
-            className="list-row" 
-            onClick={() => onRowClick(ids[rowIndex])}
-          >
-            {row.map((cell, cellIndex) => (
-              <div key={cellIndex} className="list-cell">
-                {cell}
-              </div>
+      <div>
+        {Array.isArray(data) && data.map((item, index) => (
+          <div className='tabl' onClick={() => handleClick(item)} key={index}>
+            {Array.isArray(headers) && headers.map((header, i) => (
+              <p className={i === 0 ? 't_content' : ''} key={i}>
+                {item[header.toLowerCase()]}
+              </p>
             ))}
           </div>
         ))}
       </div>
-    </div>
+    </>
   );
 };
 
-export default TableauNeutre;
+export default Tableau;

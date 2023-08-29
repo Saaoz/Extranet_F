@@ -4,7 +4,7 @@ import "../../../style/auth.css"
 
 const Sign_in = () => {
   return (
-    <div className="container sign-in-container">
+    <div className="container sign-in-container auth_part">
       <h1>Inscription</h1>
       <form>
         <input type="text" placeholder="Nom" />

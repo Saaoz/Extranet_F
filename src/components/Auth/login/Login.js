@@ -5,7 +5,7 @@ import "../../../style/auth.css"
 const Login = () => {
   
   return (
-    <div className="container login-container">
+    <div className="container login-container auth_part">
       <h1>Connexion</h1>
       <form>
         <input type="text" placeholder="Pseudo" />
