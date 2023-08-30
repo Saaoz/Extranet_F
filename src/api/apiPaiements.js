@@ -75,25 +75,21 @@ async function deletePaiement(id) {
 }
 
 // Récupérer les paiements par `marche_id`
-async function getPaiementsByMarcheId(marcheId) {
+async function getPaiementsByMarcheId(marche_id) {
     try {
-        const response = await fetch(`${BASE_URL}/api/paiements/marche_id/${marcheId}`);
-
-        if (response.status === 204) {
-            return []; // Retourne un tableau vide si aucun paiement n'a été trouvé
-        }
-
+        const response = await fetch(`${BASE_URL}/api/paiements/?marche_id=${marche_id}`);
         if (!response.ok) {
-            throw new Error(`HTTP error! Status: ${response.status}`);
+            console.error(`Erreur réseau avec le statut ${response.status}`);
+            throw new Error('Erreur réseau');
         }
-
         const data = await response.json();
         return data;
     } catch (error) {
-        console.error('Erreur lors de la récupération des paiements via marcheId :', error);
-        throw error; // Propagez l'erreur pour pouvoir la gérer ailleurs
+        console.error(`Erreur lors de la récupération du paiements avec l'ID ${marche_id}:`, error);
+        throw error;
     }
 }
+
 
 export {
     getAllPaiements,

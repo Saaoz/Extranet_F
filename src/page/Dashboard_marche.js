@@ -3,86 +3,79 @@ import { useParams } from 'react-router-dom';
 import Header from '../components/Common/Header';
 import SearchBar from '../components/Common/SearchBar';
 import SousTableau from '../components/Common/SousTableau';
+import Panel from '../components/Common/Panel';
 import '../style/App.css';
 import '../style/Common.css';
 
-//importation des routes api
-import { getMarcheAndLotInfo } from '../api/apimarcheAndLot'; 
-import {getLot} from '../api/apiLot';
-import {getMarche} from '../api/apiMarche';
+// Importation des routes API
+import { getMarcheAndLotInfo } from '../api/apimarcheAndLot';
+import { getLot } from '../api/apiLot';
+import { getMarche } from '../api/apiMarche';
 import { getSituationByMarcheId } from '../api/apiSituation';
+import { getAvenantByMarcheId } from '../api/apiAvenant';
+import { getPaiementsByMarcheId } from '../api/apiPaiements';
+
 
 const Dashboard_Marche = () => {
   const [lotInfo, setLotInfo] = useState(null);
   const [marcheInfo, setMarcheInfo] = useState(null);
   const [error, setError] = useState(false);
-  const [searchQuery, setSearchQuery] = useState(''); 
   const [situations, setSituations] = useState([]);
-
-
-  const { projetId, nom } = useParams(); 
+  const [avenants, setAvenants] = useState([]);
+  const [paiements, setPaiements] = useState([]);
+  const { projetId, nom } = useParams();
+  const [searchQuery, setSearchQuery] = useState(''); 
 
   useEffect(() => {
     async function fetchInfo() {
       try {
-        const jointureInfo = await getMarcheAndLotInfo(projetId, nom); 
-        // console.log("jointureInfo:", jointureInfo); // Debug
+        const jointureInfo = await getMarcheAndLotInfo(projetId, nom);
+        const lotId = jointureInfo[0]?.lot_id;
+        const marcheId = jointureInfo[0]?.marche_id;
         
-        const lotId = jointureInfo[0]?.lot_id;  // Accédez au premier élément du tableau
-        const marcheId = jointureInfo[0]?.marche_id;  // Accédez au premier élément du tableau
+        // Récupérer le nom du marché
+        const marcheData = await getMarche(marcheId);
+        setMarcheInfo(marcheData);
+        
+        setSituations(await getSituationByMarcheId(marcheId));
+        setAvenants(await getAvenantByMarcheId(marcheId));
+        setPaiements(await getPaiementsByMarcheId(marcheId));
 
-        // Nouvelle partie pour récupérer les situations
-        const situationsData = await getSituationByMarcheId(marcheId);
-        if (situationsData) {
-          setSituations(situationsData);
+        if (lotId) {
+          const lotData = await getLot(lotId);
+          setLotInfo(lotData);
         } else {
-          console.log('Aucune situation trouvée pour ce marché id');
-        }  
-        // console.log("lotId:", lotId); // Debug
-        // console.log("marcheId:", marcheId); // Debug
-    
-        if (lotId && marcheId) {
-          const infoLot = await getLot(lotId); 
-          // console.log('Info Lot:', infoLot);  // Debug
-          setLotInfo(infoLot);
-        
-          const infoMarche = await getMarche(marcheId);
-          // console.log('Info Marché:', infoMarche);  // Debug
-          setMarcheInfo(infoMarche);
-        } else {
-          console.error("lotId ou marcheId est undefined");
+          setError(true);
         }
-        
+
       } catch (err) {
-        console.error('Erreur lors de la récupération des informations :', err);
         setError(true);
       }
     }
-  
     fetchInfo();
-  }, [projetId, nom]);
+  }, [projetId, nom])
+
+  let montantActuel = lotInfo?.montant;
+  if (avenants.length > 0) {
+    const avenantValide = avenants.find(avenant => avenant.etat === 'valide');
+    if (avenantValide) {
+      montantActuel = avenantValide.nouveau_montant;
+    }
+  }
 
   return (
-    <div>
+<div>
       <Header isFromProject={false} />
-      <SearchBar onSearch={setSearchQuery} />
+      <SearchBar onSearch={e => setSearchQuery(e.target.value)} />
       {error && (
         <p>Une erreur s'est produite lors de la récupération des informations. Veuillez réessayer plus tard.</p>
       )}
-
-      {lotInfo && (
-        <>
-          <h2>Informations du marché</h2>
-          <p>Nom du marché: {marcheInfo?.nom}</p>
-          <p>Description du lot: {lotInfo.description}</p>
-          <p>Montant: {lotInfo.montant}</p>
-          <p>Date de début: {lotInfo.date_debut}</p>
-          <p>Date de fin: {lotInfo.date_fin}</p>
-        </>
-      )}
+      {lotInfo && marcheInfo && (
+    <Panel marcheInfo={marcheInfo} lotInfo={lotInfo} montantActuel={montantActuel} />
+)}
 <div className="tableau-container">
-      {situations && Array.from({length: 3}, (_, i) => (
-        <div className='tableau-wrapper' key={i}>
+      {situations && (
+        <div className='tableau-wrapper'>
           <h3>Situations</h3>
           <SousTableau
             headers={["Ent", "Montant", "Date", "Etat"]}
@@ -90,7 +83,27 @@ const Dashboard_Marche = () => {
             handleClick={item => console.log(item)}
           />
         </div>
-      ))}
+      )}
+      {avenants && (
+        <div className='tableau-wrapper'>
+          <h3>Avenants</h3>
+          <SousTableau
+            headers={["Ent", "Nouveau_Montant", "Date", "Etat"]}  // Modifiez les headers comme vous le souhaitez
+            data={avenants}
+            handleClick={item => console.log(item)}
+          />
+        </div>
+      )}
+      {paiements && (
+        <div className='tableau-wrapper'>
+          <h3>Paiements</h3>
+          <SousTableau
+            headers={["Reference", "Montant_payer", "Date", "Etat"]}  // Modifiez les headers comme vous le souhaitez
+            data={paiements}
+            handleClick={item => console.log(item)}
+          />
+        </div>
+      )}
     </div>
     
     {!lotInfo && !marcheInfo && !error && (
