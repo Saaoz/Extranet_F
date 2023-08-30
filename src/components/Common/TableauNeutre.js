@@ -1,28 +1,31 @@
 import React from 'react';
 
+const Tableau = ({ headers, data, handleClick }) => {
+  if (!Array.isArray(data)) {
+    console.error("Le prop 'data' doit être un tableau");
+    return <div>Une erreur est survenue</div>;
+  }
 
-const TableauNeutre = ({ tableData, headers, ids, onRowClick }) => { 
   return (
-    
-    <table className='table_interact'>
-      <thead className='t_header'>
-        <tr className='under_t_header'>
-          {headers.map((header, index) => (
-            <th key={index}>{header}</th>
-          ))}
-        </tr>
-      </thead>
-      <tbody className='t_body'>
-        {tableData.map((row, rowIndex) => (
-          <tr className='under_t_body' key={rowIndex} onClick={() => onRowClick(ids[rowIndex])}>
-            {row.map((cell, cellIndex) => (
-              <td className='t_content' key={cellIndex}>{cell}</td>
-            ))}
-          </tr>
+    <>
+      <div className='tabl'>
+        {Array.isArray(headers) && headers.map((header, index) => (
+          <p key={index}>{header}</p>
         ))}
-      </tbody>
-    </table>
+      </div>
+      <div>
+        {Array.isArray(data) && data.map((item, index) => (
+          <div className='tabl' onClick={() => handleClick(item)} key={index}>
+            {Array.isArray(headers) && headers.map((header, i) => (
+              <p className={i === 0 ? 't_content' : ''} key={i}>
+                {item[header.toLowerCase()]}
+              </p>
+            ))}
+          </div>
+        ))}
+      </div>
+    </>
   );
 };
 
-export default TableauNeutre;
+export default Tableau;

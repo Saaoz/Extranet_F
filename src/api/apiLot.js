@@ -14,6 +14,19 @@ async function getAllLots() {
     }
 }
 
+// Récupérer un lot par ID
+async function getLot(id) {
+    try {
+        const response = await fetch(`${BASE_URL}/api/lot/${id}`);
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(`Erreur lors de la récupération du DCE avec l'ID ${id}:`, error);
+        throw error;
+    }
+}
+
+
 // Ajouter un nouveau lot
 async function addLot(lot) {
     try {
@@ -102,6 +115,7 @@ async function getLotsByProjetId(projetId) {
 
 export {
     getAllLots,
+    getLot,
     addLot,
     searchLots,
     updateLot,

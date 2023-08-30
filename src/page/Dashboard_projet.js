@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SearchBar from '../components/Common/SearchBar';
-import TableauNeutre from '../components/Common/TableauNeutre';
 import Header from '../components/Common/Header';
 import { searchLots, getLotsByProjetId} from '../api/apiLot';
+import Tableau from '../components/Common/TableauNeutre';  // Assurez-vous que le chemin d'importation est correct
 
 import '../style/App.css';
 
@@ -17,7 +17,6 @@ const Dashboard_Projet = () => {
   const navigate = useNavigate();
 
   const { projetId } = useParams();
-
 
 
 
@@ -70,9 +69,10 @@ const Dashboard_Projet = () => {
     }
   };
 
-  const handleLotClick = (id) => {
-    navigate(`/dashboard_lot/${id}`);
+  const handleLotClick = (lot) => {
+    navigate(`/marche/${projetId}/${lot.nom}`);
   };
+  
 
   return (
     <div>
@@ -80,18 +80,8 @@ const Dashboard_Projet = () => {
       <SearchBar onSearch={setSearchQuery} />
       
       {currentChoice === 'listLot' && !searchError && (
-        <>
-          {searchResults.length > 0 ? (
-            <TableauNeutre
-              tableData={searchResults.map((lot) => [lot.nom, lot.description])}
-              headers={['Nom du lot', 'Description']}
-              onRowClick={(id) => handleLotClick(id)}
-            />
-            ) : (
-                <p>Aucun lot.</p>
-              )}
-            </>
-          )}
+      <Tableau headers={['Nom', 'Description']} data={searchResults} handleClick={handleLotClick} />
+    )}
     
           {currentChoice === 'listDocument' && !searchError && (
             // Ajoutez ici le contenu spécifique pour le choix "listDocument"
