@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import Header from '../components/Common/Header';
 import SearchBar from '../components/Common/SearchBar';
 import SousTableau from '../components/Common/SousTableau';
+import Panel from '../components/Common/Panel';
 import '../style/App.css';
 import '../style/Common.css';
 
@@ -13,6 +14,7 @@ import { getMarche } from '../api/apiMarche';
 import { getSituationByMarcheId } from '../api/apiSituation';
 import { getAvenantByMarcheId } from '../api/apiAvenant';
 import { getPaiementsByMarcheId } from '../api/apiPaiements';
+
 
 const Dashboard_Marche = () => {
   const [lotInfo, setLotInfo] = useState(null);
@@ -69,15 +71,8 @@ const Dashboard_Marche = () => {
         <p>Une erreur s'est produite lors de la récupération des informations. Veuillez réessayer plus tard.</p>
       )}
       {lotInfo && marcheInfo && (
-        <>
-          <h2>Informations du marché - {marcheInfo.nom}</h2>
-          <p>Montant initial du projet : {lotInfo.montant}</p>
-          <p>Prix du marché actuel : {montantActuel}</p>
-          <p>Description du lot: {lotInfo.description}</p>
-          <p>Date de début: {lotInfo.date_debut}</p>
-          <p>Date de fin: {lotInfo.date_fin}</p>
-        </>
-      )}
+    <Panel marcheInfo={marcheInfo} lotInfo={lotInfo} montantActuel={montantActuel} />
+)}
 <div className="tableau-container">
       {situations && (
         <div className='tableau-wrapper'>

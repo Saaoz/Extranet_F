@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import "./style/App.css";
 import "./style/reset.css";
 import "./style/helpers.css";
+import "./style/colors.css";
 import SigninPage from "../src/page/Sign_in";
 import ResetPage from "./page/Reset";
 import LoginPage from "./page/Login";
