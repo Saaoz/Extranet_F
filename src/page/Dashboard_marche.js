@@ -85,7 +85,7 @@ const Dashboard_Marche = () => {
         <div className='tableau-wrapper' key={i}>
           <h3>Situations</h3>
           <SousTableau
-            headers={["Ent", "Montant", "Date", "État"]}
+            headers={["Ent", "Montant", "Date", "Etat"]}
             data={situations}
             handleClick={item => console.log(item)}
           />
