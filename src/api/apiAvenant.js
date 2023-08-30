@@ -74,10 +74,26 @@ async function deleteAvenant(id) {
     }
 }
 
+async function getAvenantByMarcheId(marche_id) {
+    try {
+        const response = await fetch(`${BASE_URL}/api/avenants/?marche_id=${marche_id}`);
+        if (!response.ok) {
+            console.error(`Erreur réseau avec le statut ${response.status}`);
+            throw new Error('Erreur réseau');
+        }
+        const data = await response.json();
+        return data;
+    } catch (error) {
+        console.error(`Erreur lors de la récupération de la situation avec l'ID ${marche_id}:`, error);
+        throw error;
+    }
+}
+
 export {
     getAllAvenants,
     getAvenant,
     addAvenant,
     updateAvenant,
-    deleteAvenant
+    deleteAvenant,
+    getAvenantByMarcheId
 };
