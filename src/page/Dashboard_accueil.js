@@ -19,7 +19,7 @@ const Dashboard_accueil = () => {
   async function preloadLatestProjects() {
     try {
       const allProjets = await getAllProjets();
-      const latestProjects = allProjets.slice(-15).map((projet) => ({
+      const latestProjects = allProjets.slice(-10).map((projet) => ({
         id: projet.id,
         nom: projet.nom,
         description: projet.description,
@@ -112,7 +112,7 @@ const Dashboard_accueil = () => {
       )}
 
       {currentChoice === 'listProjet' && (
-        <button className='projet_add' onClick={handleProjetAdd}>Ajouter un projet</button>
+        <button className='projet_add_btn' onClick={handleProjetAdd}>Ajouter un projet</button>
       )}
       </body>
     </>

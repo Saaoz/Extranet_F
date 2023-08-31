@@ -11,6 +11,10 @@ button {
     cursor: pointer;
   }
 
+  table {
+    border-collapse: collapse;
+  
+  }
 
 /* header { 
 
@@ -27,6 +31,7 @@ button {
     padding-left: 2rem;
     padding-right: 2rem;
     padding-bottom: 2rem;
+    
 }
 
 .menu_burger {
@@ -42,4 +47,97 @@ button {
 }
 
 /* searchbar CSS */
+
+.search-bar{
+  display: flex;
+  justify-content: center;
+  background-color: #FFF;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.input_search{
+  width: 35%;
+  border: none;
+  border-radius: 0.5rem;
+  box-shadow: var(--couleur-background) 0px 30px 60px -12px inset, var(--couleur-texte) 0px 18px 36px -18px inset;
+  color: var(--couleur-texte);
+  font-weight: 700;
+  height: 4.8rem;
+  text-align: center;
+}
+
+/* Tableaux central projet_lot */
+
+.tabl{
+  display: flex;
+  justify-content: space-around
+}
+
+.t_header{
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+}
+
+.global_t_content{
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.t_content{
+border-bottom: 1px solid #000;
+}
+
+/* CSS propre à la page accueil */
+
+.projet_add_btn{
+  width: 100%;
+}
+
+/* CSS du panel présent sur le marché */
+.marche-info{
+  display: flex;
+  justify-content: space-around;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.marche-info-container{
+  display: flex;
+  text-align: center;
+  flex-direction: column
+}
+
+
+/* CSS sous tableau marché */
+
+.tableau-container{
+  display: flex;
+  gap: 2%;
+  text-align: center;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.tableau-wrapper{
+  width: 30%;
+}
+
+.sous-tableau-th, .sous-tableau-td{
+  border-left: 2px solid #060604;
+  border-right: 2px solid #060604;
+}
+
+.sous-tableau-row, .sous-tableau-header{
+  border-bottom: 2px solid #060604;
+}
+
+.sous-tableau{
+  width: 100%;
+  
+}
+
+
 

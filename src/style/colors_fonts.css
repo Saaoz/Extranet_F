@@ -25,7 +25,8 @@
 
 button {
   background-color: var(--couleur-accent);
-  color: var(--couleur-texte2); /* ou blanc si cela rend mieux */
+  color: var(--couleur-texte2); 
+  font-weight: 700;
 }
 
 button:hover {
@@ -44,4 +45,25 @@ html{
 
 header{
   background-color: var(--couleur-background);
+}
+
+/* Tableaux central projet_lot */
+.tabl{
+ font-size: 1.8rem;
+}
+
+.t_header{
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.t_content:hover{
+  font-size: 2rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+/* CSS du panel présent sur le marché */
+.info-title{
+  font-weight: 700;
 }
