@@ -1,0 +1,45 @@
+/* Balise PURE */
+
+button {
+    padding: 0.4rem 0.8rem;
+    padding-left: 2.5rem;
+    padding-right: 2.5rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    border: 0.2rem solid var(#060604);
+    border-radius: 0.4rem;
+    cursor: pointer;
+  }
+
+
+/* header { 
+
+} */
+
+/* Header CSS */
+
+.menu_header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    padding-top: 2rem;
+    padding-left: 2rem;
+    padding-right: 2rem;
+    padding-bottom: 2rem;
+}
+
+.menu_burger {
+  display: none;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
+.menu_burger_btn{
+  display: flex;
+  gap: 0.5rem;
+  flex-direction: column;
+}
+
+/* searchbar CSS */
+

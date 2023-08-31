@@ -5,7 +5,6 @@ import SearchBar from '../components/Common/SearchBar';
 import SousTableau from '../components/Common/SousTableau';
 import Panel from '../components/Common/Panel';
 import '../style/App.css';
-import '../style/Common.css';
 
 // Importation des routes API
 import { getMarcheAndLotInfo } from '../api/apimarcheAndLot';

@@ -1,0 +1,28 @@
+/* Petits appareils mobiles (portraits, moins de 576px) */
+@media (max-width: 575.98px) {}
+
+/* Appareils mobiles (portraits, 576px et plus) */
+@media (min-width: 576px) and (max-width: 767.98px) {}
+
+/* Appareils mobiles (paysages, 768px et plus) */
+@media (min-width: 768px) and (max-width: 991.98px) {}
+
+/* Tablettes (1024px et plus) */
+@media (min-width: 992px) and (max-width: 1199.98px) {}
+
+/* Petits écrans d'ordinateur (1200px et plus) */
+@media (min-width: 1200px) and (max-width: 1399.98px) {}
+
+/* Grands écrans d'ordinateur (1400px et plus) */
+@media (min-width: 1400px) {}
+
+
+@media (max-width: 991.98px) {
+    .menu_header {
+        display: none;
+    }
+
+    .menu_burger {
+        display: flex;
+    }
+}

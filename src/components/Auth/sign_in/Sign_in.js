@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import "../../../style/auth.css"
+// import "../../../style/auth.css"
 
 const Sign_in = () => {
   return (

@@ -75,7 +75,7 @@ const Dashboard_Projet = () => {
   
 
   return (
-    <div>
+    <>
       <Header isFromProject={true} onChoiceChange={handleChoiceChange} currentChoice={currentChoice} />
       <SearchBar onSearch={setSearchQuery} />
       
@@ -97,8 +97,7 @@ const Dashboard_Projet = () => {
           {currentChoice === 'listLot' && searchError && (
             <p>Une erreur s'est produite lors de la recherche. Veuillez réessayer plus tard.</p>
           )}
-    
-    </div>
+    </>
   );
 };
 

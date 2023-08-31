@@ -4,8 +4,8 @@ import SearchBar from '../components/Common/SearchBar';
 import Tableau from '../components/Common/TableauNeutre';
 import Header from '../components/Common/Header';
 import { searchProjets, getAllProjets } from '../api/apiProjet';
-
 import '../style/App.css';
+import '../style/Queries.css';
 
 const Dashboard_accueil = () => {
   const [searchResults, setSearchResults] = useState([]);
@@ -79,12 +79,12 @@ const Dashboard_accueil = () => {
   };
 
   return (
-    <div>
+    <>
       <Header
         onChoiceChange={handleChoiceChange}
         currentChoice={currentChoice}
       />
-
+      <body>
       <SearchBar onSearch={setSearchQuery} /> {/* Utilisez setSearchQuery comme fonction de rappel pour la recherche */}
 
       {/* Affichez les résultats en fonction du choix actuel */}
@@ -114,7 +114,8 @@ const Dashboard_accueil = () => {
       {currentChoice === 'listProjet' && (
         <button className='projet_add' onClick={handleProjetAdd}>Ajouter un projet</button>
       )}
-    </div>
+      </body>
+    </>
   );
 };
 
