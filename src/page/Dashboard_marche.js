@@ -77,7 +77,7 @@ const Dashboard_Marche = () => {
         <div className='tableau-wrapper'>
           <h3>Situations</h3>
           <SousTableau
-            headers={["Ent", "Montant", "Date", "Etat"]}
+            headers={["Ent", "Montant", "Date", "Etat"]} // Header modifiable en fonction des données
             data={situations}
             handleClick={item => console.log(item)}
           />
@@ -87,7 +87,7 @@ const Dashboard_Marche = () => {
         <div className='tableau-wrapper'>
           <h3>Avenants</h3>
           <SousTableau
-            headers={["Ent", "Nouveau_Montant", "Date", "Etat"]}  // Modifiez les headers comme vous le souhaitez
+            headers={["Ent", "Nouveau_Montant", "Date", "Etat"]}  // Header modifiable en fonction des données
             data={avenants}
             handleClick={item => console.log(item)}
           />
@@ -97,7 +97,7 @@ const Dashboard_Marche = () => {
         <div className='tableau-wrapper'>
           <h3>Paiements</h3>
           <SousTableau
-            headers={["Reference", "Montant_payer", "Date", "Etat"]}  // Modifiez les headers comme vous le souhaitez
+            headers={["Reference", "Montant_payer", "Date", "Etat"]} // Header modifiable en fonction des données
             data={paiements}
             handleClick={item => console.log(item)}
           />

@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
 import SearchBar from '../components/Common/SearchBar';
 import Header from '../components/Common/Header';
+import Tableau from '../components/Common/TableauNeutre';  
 import { searchLots, getLotsByProjetId} from '../api/apiLot';
-import Tableau from '../components/Common/TableauNeutre';  // Assurez-vous que le chemin d'importation est correct
+
 
 import '../style/App.css';
 

@@ -27,27 +27,31 @@
         display: flex;
     }
 
-.search-bar {
-    display: flex;
-    flex-direction: column-reverse;
-    gap: 0.5rem;
-  }
-  .input_search {
-    width: 100%;
-  }
-.marche-info{
-    display: flex;
-    flex-direction: column;
-}
-.tableau-container{
-    display: flex;
-    flex-direction: column;
-    width: 100%;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-}
-.tableau-wrapper{
-    width: 100%;
-}
+    .search-bar {
+        display: flex;
+        flex-direction: column-reverse;
+        gap: 0.5rem;
+    }
+
+    .input_search {
+        width: 100%;
+    }
+
+    .marche-info {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .tableau-container {
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        padding-left: 1.5rem;
+        padding-right: 1.5rem;
+    }
+
+    .tableau-wrapper {
+        width: 100%;
+    }
 
 }

@@ -6,7 +6,7 @@ const Reset = () => {
   return (
     <div className="container reset-container auth_part">
       <h1>Réinitialisation du mot de passe</h1>
-      <form>
+      <form className='form-reset'>
         <input type="email" placeholder="Adresse e-mail" />
         <button type="submit">Demander la réinitialisation du mot de passe</button>
       </form>

@@ -4,9 +4,9 @@ import { Link } from 'react-router-dom';
 
 const Sign_in = () => {
   return (
-    <div className="container sign-in-container auth_part">
+    <div className="container sign-in-container ">
       <h1>Inscription</h1>
-      <form>
+      <form className='form-sign'>
         <input type="text" placeholder="Nom" />
         <input type="text" placeholder="Prénom" />
         <input type="email" placeholder="Email" />
@@ -14,7 +14,7 @@ const Sign_in = () => {
         <input type="password" placeholder="Mot de passe" />
         <input type="password" placeholder="Validation du mot de passe" />
         <textarea placeholder="Description" />
-        <div>
+        <div className='radio-label'>
           <label>
             <input type="radio" name="role" value="ENT" /> ENT
           </label>

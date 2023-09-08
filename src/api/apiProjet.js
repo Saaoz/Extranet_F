@@ -1,5 +1,3 @@
-// Fichier "apiProjet.js" dans le dossier "src/api"
-
 const BASE_URL = 'http://localhost:8000'; // Définir l'URL de base de votre API ici
 
 // Récupérer tous les projets
@@ -36,16 +34,16 @@ async function addProjet(nom) {
 async function searchProjets(query) {
     try {
         const res = await fetch(`${BASE_URL}/api/projets/recherche?nom=${encodeURIComponent(query)}`);
-      if (!res.ok) {
-        throw new Error('Erreur lors de la récupération des données.');
-      }
-      const data = await res.json();
-      return data;
+        if (!res.ok) {
+            throw new Error('Erreur lors de la récupération des données.');
+        }
+        const data = await res.json();
+        return data;
     } catch (error) {
-      console.error('Erreur lors de la recherche des projets :', error);
-      throw error;
+        console.error('Erreur lors de la recherche des projets :', error);
+        throw error;
     }
-  }
+}
 
 // Mettre à jour un projet existant
 async function updateProjet(id, nom) {
@@ -80,10 +78,10 @@ async function deleteProjet(id) {
 }
 
 export {
-        getAllProjets,
-        addProjet,
-        searchProjets,
-        updateProjet,
-        deleteProjet
-    };
+    getAllProjets,
+    addProjet,
+    searchProjets,
+    updateProjet,
+    deleteProjet
+};
 

@@ -12,7 +12,7 @@ const Dashboard_accueil = () => {
   const [currentChoice, setCurrentChoice] = useState('listProjet');
   const [searchError, setSearchError] = useState(false);
   const [searchQuery, setSearchQuery] = useState(''); // Nouvelle variable d'état pour la requête de recherche
-  const [defaultProjects, setDefaultProjects] = useState([]); // Nouvelle variable d'état pour les projets par défaut
+  const [defaultProjects, setDefaultProjects] = useState([]); 
   const navigate = useNavigate();
 
 
@@ -33,7 +33,6 @@ const Dashboard_accueil = () => {
   }
 
   useEffect(() => {
-    // Précharge les 5 derniers projets au chargement de la page
     preloadLatestProjects();
   }, []);
 
