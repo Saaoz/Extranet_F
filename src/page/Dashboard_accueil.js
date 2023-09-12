@@ -83,7 +83,7 @@ const Dashboard_accueil = () => {
         onChoiceChange={handleChoiceChange}
         currentChoice={currentChoice}
       />
-      <body>
+      <div>
       <SearchBar onSearch={setSearchQuery} /> {/* Utilisez setSearchQuery comme fonction de rappel pour la recherche */}
 
       {/* Affichez les résultats en fonction du choix actuel */}
@@ -113,7 +113,7 @@ const Dashboard_accueil = () => {
       {currentChoice === 'listProjet' && (
         <button className='projet_add_btn' onClick={handleProjetAdd}>Ajouter un projet</button>
       )}
-      </body>
+      </div>
     </>
   );
 };

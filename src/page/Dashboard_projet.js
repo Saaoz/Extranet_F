@@ -27,7 +27,7 @@ const Dashboard_Projet = () => {
           const lots = await getLotsByProjetId(projetId); 
           
           if (lots.length === 0) {
-              // Gérer le cas où il n'y a pas de lots. Par exemple, afficher un message.
+            
           } else {
               setSearchResults(lots);
               setDefaultLots(lots);
@@ -35,7 +35,7 @@ const Dashboard_Projet = () => {
   
       } catch (error) {
           console.error('Erreur lors du chargement des lots :', error);
-          setSearchError(true); // Vous pouvez toujours définir une erreur si nécessaire.
+          setSearchError(true); 
       }
   }
 
@@ -73,7 +73,6 @@ const Dashboard_Projet = () => {
   const handleLotClick = (lot) => {
     navigate(`/marche/${projetId}/${lot.nom}`);
   };
-  
 
   return (
     <>

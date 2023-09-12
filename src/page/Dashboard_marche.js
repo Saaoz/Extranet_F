@@ -24,6 +24,7 @@ const Dashboard_Marche = () => {
   const [paiements, setPaiements] = useState([]);
   const { projetId, nom } = useParams();
   const [searchQuery, setSearchQuery] = useState(''); 
+  const [currentChoice, setCurrentChoice] = useState(null);
 
   useEffect(() => {
     async function fetchInfo() {
@@ -50,6 +51,7 @@ const Dashboard_Marche = () => {
         setSituations(filteredSituations);
         setAvenants(filteredAvenants);
         setPaiements(filteredPaiements);
+        
 
         if (lotId) {
           const lotData = await getLot(lotId);
@@ -75,7 +77,13 @@ const Dashboard_Marche = () => {
 
   return (
 <div>
-      <Header isFromProject={false} />
+      <Header 
+        isFromMarche={true} 
+        onChoiceChange={setCurrentChoice} 
+        currentChoice={currentChoice}
+        // Vous pouvez ajouter d'autres props si nécessaire
+      />
+
       <SearchBar onSearch={e => setSearchQuery(e.target.value)} />
       {error && (
         <p>Une erreur s'est produite lors de la récupération des informations. Veuillez réessayer plus tard.</p>
