@@ -3,7 +3,7 @@ const BASE_URL = 'http://localhost:8000'; // Définir l'URL de base de votre API
 // Récupérer les informations de marché et de lot
 async function getMarcheAndLotInfo(projetId, nom) {
     try {
-        const response = await fetch(`${BASE_URL}/api/marcheAndLot/${projetId}/${nom}`);
+        const response = await fetch(`${BASE_URL}/api/marche_lot/${projetId}/${nom}`);
         if (!response.ok) {
             throw new Error(`Erreur HTTP ${response.status}`);
         }

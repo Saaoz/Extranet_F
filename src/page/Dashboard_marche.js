@@ -27,6 +27,7 @@ const Dashboard_Marche = () => {
 
   useEffect(() => {
     async function fetchInfo() {
+      
       try {
         const jointureInfo = await getMarcheAndLotInfo(projetId, nom);
         const lotId = jointureInfo[0]?.lot_id;
@@ -36,9 +37,19 @@ const Dashboard_Marche = () => {
         const marcheData = await getMarche(marcheId);
         setMarcheInfo(marcheData);
         
-        setSituations(await getSituationByMarcheId(marcheId));
-        setAvenants(await getAvenantByMarcheId(marcheId));
-        setPaiements(await getPaiementsByMarcheId(marcheId));
+        const fetchedSituations = await getSituationByMarcheId(marcheId);
+        const fetchedAvenants = await getAvenantByMarcheId(marcheId);
+        const fetchedPaiements = await getPaiementsByMarcheId(marcheId);
+        
+        //Filtrage des données via marche_id
+        const filteredSituations = fetchedSituations.filter(situation => situation.marche_id === marcheId);
+        const filteredAvenants = fetchedAvenants.filter(avenant => avenant.marche_id === marcheId);
+        const filteredPaiements = fetchedPaiements.filter(paiement => paiement.marche_id === marcheId);
+
+
+        setSituations(filteredSituations);
+        setAvenants(filteredAvenants);
+        setPaiements(filteredPaiements);
 
         if (lotId) {
           const lotData = await getLot(lotId);
@@ -77,7 +88,7 @@ const Dashboard_Marche = () => {
         <div className='tableau-wrapper'>
           <h3>Situations</h3>
           <SousTableau
-            headers={["Ent", "Montant", "Date", "Etat"]} // Header modifiable en fonction des données
+            headers={["Ent", "Montant", "Date", "Etat", "marche_id"]} // Header modifiable en fonction des données
             data={situations}
             handleClick={item => console.log(item)}
           />
@@ -87,7 +98,7 @@ const Dashboard_Marche = () => {
         <div className='tableau-wrapper'>
           <h3>Avenants</h3>
           <SousTableau
-            headers={["Ent", "Nouveau_Montant", "Date", "Etat"]}  // Header modifiable en fonction des données
+            headers={["Ent", "Nouveau_Montant", "Date", "Etat", "marche_id"]}  // Header modifiable en fonction des données
             data={avenants}
             handleClick={item => console.log(item)}
           />
@@ -97,7 +108,7 @@ const Dashboard_Marche = () => {
         <div className='tableau-wrapper'>
           <h3>Paiements</h3>
           <SousTableau
-            headers={["Reference", "Montant_payer", "Date", "Etat"]} // Header modifiable en fonction des données
+            headers={["Reference", "Montant_payer", "Date", "Etat", "marche_id"]} // Header modifiable en fonction des données
             data={paiements}
             handleClick={item => console.log(item)}
           />
