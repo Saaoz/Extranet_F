@@ -1,9 +1,10 @@
-// Fichier "Header.js"
-
-import React from 'react';
+// Fichier Header.js
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import HeaderButtons from './HeaderButtons';  // N'oubliez pas de mettre le bon chemin
 
 const Header = ({ onChoiceChange, currentChoice, isFromProject }) => {
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleBackToDashboard = () => {
@@ -11,33 +12,37 @@ const Header = ({ onChoiceChange, currentChoice, isFromProject }) => {
   };
 
   const handleLogout = () => {
-    navigate('/'); // Ici, nous supposons que la page de connexion est à la racine
+    navigate('/');
+  };
+
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
   };
 
   return (
     <header>
       <div className='menu_header'>
-        <button onClick={handleBackToDashboard}>HOME</button>
-        <button
-          onClick={() => onChoiceChange('listProjet')}
-          className={currentChoice === 'listProjet' ? 'active' : ''}
-        >
-          {isFromProject ? 'Liste des Lots' : 'Liste des projets' } 
-        </button>
-        <button
-          onClick={() => onChoiceChange('listDocument')}
-          className={currentChoice === 'listDocument' ? 'active' : ''}
-        >
-          Liste des documents
-        </button>
-        <button
-          onClick={() => onChoiceChange('listNotice')}
-          className={currentChoice === 'listNotice' ? 'active' : ''}
-        >
-          Liste des notices
-        </button>
-
-        <button onClick={handleLogout}>Se déconnecter</button>
+        <HeaderButtons 
+          onChoiceChange={onChoiceChange} 
+          currentChoice={currentChoice} 
+          isFromProject={isFromProject}
+          handleBackToDashboard={handleBackToDashboard}
+          handleLogout={handleLogout}
+        />
+      </div>
+      <div className='menu_burger'>
+        <button onClick={toggleMenu}>☰</button>
+        {isMenuOpen && (
+          <div className='menu_burger_btn'>
+            <HeaderButtons 
+              onChoiceChange={onChoiceChange} 
+              currentChoice={currentChoice} 
+              isFromProject={isFromProject}
+              handleBackToDashboard={handleBackToDashboard}
+              handleLogout={handleLogout}
+            />
+          </div>
+        )}
       </div>
     </header>
   );

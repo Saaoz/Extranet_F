@@ -3,8 +3,8 @@ const BASE_URL = 'http://localhost:8000'; // Définir l'URL de base de votre API
 // Récupérer tous les avenants
 async function getAllAvenants() {
     try {
-        const response = await fetch(`${BASE_URL}/api/avenants`);
-        const data = await response.json();
+        const res = await fetch(`${BASE_URL}/api/avenants`);
+        const data = await res.json();
         return data;
     } catch (error) {
         console.error('Erreur lors de la récupération des avenants :', error);
@@ -15,8 +15,8 @@ async function getAllAvenants() {
 // Récupérer un avenant par ID
 async function getAvenant(id) {
     try {
-        const response = await fetch(`${BASE_URL}/api/avenants/${id}`);
-        const data = await response.json();
+        const res = await fetch(`${BASE_URL}/api/avenants/${id}`);
+        const data = await res.json();
         return data;
     } catch (error) {
         console.error(`Erreur lors de la récupération de l'avenant avec l'ID ${id}:`, error);
@@ -27,14 +27,14 @@ async function getAvenant(id) {
 // Ajouter un nouvel avenant
 async function addAvenant(avenant) {
     try {
-        const response = await fetch(`${BASE_URL}/api/avenants`, {
+        const res = await fetch(`${BASE_URL}/api/avenants`, {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(avenant)
         });
-        const data = await response.json();
+        const data = await res.json();
         return data;
     } catch (error) {
         console.error('Erreur lors de l\'ajout de l\'avenant :', error);
@@ -45,14 +45,14 @@ async function addAvenant(avenant) {
 // Mettre à jour un avenant existant
 async function updateAvenant(id, avenant) {
     try {
-        const response = await fetch(`${BASE_URL}/api/avenants/${id}`, {
+        const res = await fetch(`${BASE_URL}/api/avenants/${id}`, {
             method: 'PUT',
             headers: {
                 'Content-Type': 'application/json'
             },
             body: JSON.stringify(avenant)
         });
-        const data = await response.json();
+        const data = await res.json();
         return data;
     } catch (error) {
         console.error('Erreur lors de la mise à jour de l\'avenant :', error);
@@ -63,10 +63,10 @@ async function updateAvenant(id, avenant) {
 // Supprimer un avenant
 async function deleteAvenant(id) {
     try {
-        const response = await fetch(`${BASE_URL}/api/avenants/${id}`, {
+        const res = await fetch(`${BASE_URL}/api/avenants/${id}`, {
             method: 'DELETE'
         });
-        const data = await response.json();
+        const data = await res.json();
         return data;
     } catch (error) {
         console.error('Erreur lors de la suppression de l\'avenant :', error);
@@ -76,12 +76,12 @@ async function deleteAvenant(id) {
 
 async function getAvenantByMarcheId(marche_id) {
     try {
-        const response = await fetch(`${BASE_URL}/api/avenants/?marche_id=${marche_id}`);
-        if (!response.ok) {
-            console.error(`Erreur réseau avec le statut ${response.status}`);
+        const res = await fetch(`${BASE_URL}/api/avenants/?marche_id=${marche_id}`);
+        if (!res.ok) {
+            console.error(`Erreur réseau avec le statut ${res.status}`);
             throw new Error('Erreur réseau');
         }
-        const data = await response.json();
+        const data = await res.json();
         return data;
     } catch (error) {
         console.error(`Erreur lors de la récupération de la situation avec l'ID ${marche_id}:`, error);

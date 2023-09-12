@@ -29,7 +29,7 @@ const SousTableau = ({ headers, data, handleClick }) => {
                         key={index}
                         onClick={() => handleClick(row)}
                         className="sous-tableau-row"
-                        style={{ backgroundColor: getBackgroundColor(row.etat) }} // Assurez-vous que 'etat' correspond au nom de la clé dans vos objets de données
+                        style={{ backgroundColor: getBackgroundColor(row.etat) }} 
                     >
                         {headers.map((header, index) => (
                             <td key={index} className="sous-tableau-td">{row[header.toLowerCase()]}</td>

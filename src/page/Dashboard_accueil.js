@@ -4,22 +4,22 @@ import SearchBar from '../components/Common/SearchBar';
 import Tableau from '../components/Common/TableauNeutre';
 import Header from '../components/Common/Header';
 import { searchProjets, getAllProjets } from '../api/apiProjet';
-
 import '../style/App.css';
+import '../style/Queries.css';
 
 const Dashboard_accueil = () => {
   const [searchResults, setSearchResults] = useState([]);
   const [currentChoice, setCurrentChoice] = useState('listProjet');
   const [searchError, setSearchError] = useState(false);
   const [searchQuery, setSearchQuery] = useState(''); // Nouvelle variable d'état pour la requête de recherche
-  const [defaultProjects, setDefaultProjects] = useState([]); // Nouvelle variable d'état pour les projets par défaut
+  const [defaultProjects, setDefaultProjects] = useState([]); 
   const navigate = useNavigate();
 
 
   async function preloadLatestProjects() {
     try {
       const allProjets = await getAllProjets();
-      const latestProjects = allProjets.slice(-15).map((projet) => ({
+      const latestProjects = allProjets.slice(-10).map((projet) => ({
         id: projet.id,
         nom: projet.nom,
         description: projet.description,
@@ -33,7 +33,6 @@ const Dashboard_accueil = () => {
   }
 
   useEffect(() => {
-    // Précharge les 5 derniers projets au chargement de la page
     preloadLatestProjects();
   }, []);
 
@@ -79,12 +78,12 @@ const Dashboard_accueil = () => {
   };
 
   return (
-    <div>
+    <>
       <Header
         onChoiceChange={handleChoiceChange}
         currentChoice={currentChoice}
       />
-
+      <div>
       <SearchBar onSearch={setSearchQuery} /> {/* Utilisez setSearchQuery comme fonction de rappel pour la recherche */}
 
       {/* Affichez les résultats en fonction du choix actuel */}
@@ -112,9 +111,10 @@ const Dashboard_accueil = () => {
       )}
 
       {currentChoice === 'listProjet' && (
-        <button className='projet_add' onClick={handleProjetAdd}>Ajouter un projet</button>
+        <button className='projet_add_btn' onClick={handleProjetAdd}>Ajouter un projet</button>
       )}
-    </div>
+      </div>
+    </>
   );
 };
 

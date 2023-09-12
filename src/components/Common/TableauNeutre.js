@@ -8,16 +8,16 @@ const Tableau = ({ headers, data, handleClick }) => {
 
   return (
     <>
-      <div className='tabl'>
+      <div className='tabl t_header'>
         {Array.isArray(headers) && headers.map((header, index) => (
           <p key={index}>{header}</p>
         ))}
       </div>
-      <div>
+      <div className='global_t_content'>
         {Array.isArray(data) && data.map((item, index) => (
-          <div className='tabl' onClick={() => handleClick(item)} key={index}>
+          <div className='tabl t_content' onClick={() => handleClick(item)} key={index}>
             {Array.isArray(headers) && headers.map((header, i) => (
-              <p className={i === 0 ? 't_content' : ''} key={i}>
+              <p className={i === 0 ? 't_s_content' : ''} key={i}>
                 {item[header.toLowerCase()]}
               </p>
             ))}
