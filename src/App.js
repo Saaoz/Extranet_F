@@ -1,5 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
 import "./style/App.css";
 import "./style/reset.css";
 import "./style/helpers.css";
@@ -13,6 +14,8 @@ import DashboardMarche from "./page/Dashboard_marche";
 
 const App = () => {
   return (
+    <>
+    <ToastContainer />
     <BrowserRouter>
       <Routes>
         <Route path="/sign_in" element={<SigninPage />} />
@@ -24,6 +27,7 @@ const App = () => {
         {/* Autres routes */}
       </Routes>
     </BrowserRouter>
+    </>
   );
 };
 
