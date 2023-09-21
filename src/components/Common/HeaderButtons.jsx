@@ -39,7 +39,6 @@ const HeaderButtons = ({
       >
         Liste des notices
       </button>
-      <button onClick={handleLogout}>Se déconnecter</button>
     </>
   );
 };

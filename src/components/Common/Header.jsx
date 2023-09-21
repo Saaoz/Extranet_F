@@ -1,10 +1,10 @@
-// Fichier Header.js
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import HeaderButtons from './HeaderButtons';  // N'oubliez pas de mettre le bon chemin
+import HeaderButtons from './HeaderButtons';
 
 const Header = ({ onChoiceChange, currentChoice, isFromProject }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [isProfileMenuOpen, setIsProfileMenuOpen] = useState(false);
   const navigate = useNavigate();
 
   const handleBackToDashboard = () => {
@@ -15,8 +15,26 @@ const Header = ({ onChoiceChange, currentChoice, isFromProject }) => {
     navigate('/');
   };
 
+// toggle du menu burger
+
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
+  };
+
+// toggle du menu profil
+
+  const toggleProfileMenu = () => {
+    setIsProfileMenuOpen(!isProfileMenuOpen);
+  };
+
+  // handle de redirection vers le profil
+
+  const handleProfileClick = () => {
+    navigate('/profilePage', { state: { scrollTo: 'profile-section' } });
+  };
+  
+  const handleSettingsClick = () => {
+    navigate('/profilePage', { state: { scrollTo: 'settings-section' } });
   };
 
   return (
@@ -27,8 +45,17 @@ const Header = ({ onChoiceChange, currentChoice, isFromProject }) => {
           currentChoice={currentChoice} 
           isFromProject={isFromProject}
           handleBackToDashboard={handleBackToDashboard}
-          handleLogout={handleLogout}
         />
+        <div className='menu_profil'>
+        <button onClick={toggleProfileMenu}>Profile Image</button>
+        {isProfileMenuOpen && (
+          <div className="profile-dropdown">
+            <button onClick={handleProfileClick}>Profil</button>
+            <button onClick={handleSettingsClick}>Paramètres</button>
+            <button onClick={handleLogout}>Déconnexion</button>
+          </div>
+        )}
+        </div>
       </div>
       <div className='menu_burger'>
         <button onClick={toggleMenu}>☰</button>
@@ -39,7 +66,6 @@ const Header = ({ onChoiceChange, currentChoice, isFromProject }) => {
               currentChoice={currentChoice} 
               isFromProject={isFromProject}
               handleBackToDashboard={handleBackToDashboard}
-              handleLogout={handleLogout}
             />
           </div>
         )}
