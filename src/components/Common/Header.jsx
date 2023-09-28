@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import HeaderButtons from './HeaderButtons';
+import { logout } from '../../api/apiUser'; 
+import { toast } from 'react-toastify';
 
 const Header = ({ onChoiceChange, currentChoice, isFromProject }) => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
@@ -11,10 +13,16 @@ const Header = ({ onChoiceChange, currentChoice, isFromProject }) => {
     navigate('/accueil');
   };
 
-  const handleLogout = () => {
-    navigate('/');
+  const handleLogout = async () => {
+    try {
+      await logout(); // Si la déconnexion réussit, aucune erreur n'est levée
+      toast.success('Déconnexion réussie !');
+      navigate('/'); // redirigez l'utilisateur 
+    } catch (error) {
+      console.error(error); 
+      toast.error('Une erreur s’est produite lors de la déconnexion.'); 
+    }
   };
-
 // toggle du menu burger
 
   const toggleMenu = () => {

@@ -6,7 +6,6 @@ const HeaderButtons = ({
   isFromProject,
   isFromMarche,
   handleBackToDashboard,
-  handleLogout,
 }) => {
   return (
     <>
